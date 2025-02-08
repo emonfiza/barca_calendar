@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Barcelona 2025 La Liga Schedule (IST)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS - No changes from previous version --- */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5; /* Default fallback */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* --- Blaugrana Background Gradient --- */
+            background: linear-gradient(135deg, #004d98 25%, #ac0049 75%); /* Blaugrana gradient */
+            background-attachment: fixed; /* Fixed background for smoother scrolling */
+             overflow-x: hidden; /* Prevent horizontal scrollbar if gradient is wider */
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .barcelona-crest {
+            width: 80px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white; /* White title for blaugrana background */
+            margin-bottom: 5px;
+            margin-top: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Added text shadow for better readability */
+        }
+
+        .tagline {
+            color: white; /* White tagline for blaugrana background */
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Added text shadow for better readability */
+        }
+
+        .calendar-container {
+            background-color: white; /* White calendar container */
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            width: 95%;
+            max-width: 850px;
+            margin-bottom: 30px;
+        }
+
+        .calendar-header {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white header */
+            color: #004d98; /* Barcelona blue header text */
+            padding: 20px 25px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+             border-bottom: 2px solid #e0e0e0; /* Subtle bottom border for header */
+        }
+
+        .month-navigation button {
+            background: none;
+            border: none;
+            color: #004d98; /* Blue navigation arrows */
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: color 0.2s ease, opacity 0.2s ease; /* Transition for color and opacity */
+        }
+
+        .month-navigation button:hover {
+            color: #ac0049; /* Garnet/Red navigation arrows on hover */
+            opacity: 0.8;
+        }
+
+        .calendar-body {
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.85); /* Slightly transparent white body */
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            font-weight: 500;
+            color: #777;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .weekday {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.95em;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .day {
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            font-size: 1em;
+        }
+
+        .day:hover {
+            background-color: #e0e0e0;
+        }
+
+        .day.has-match {
+            background-color: #004d98;
+            color: white;
+            font-weight: 600;
+        }
+        .day.has-match:hover {
+            background-color: #ac0049;
+            color: white;
+        }
+
+        .match-info-popup {
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .match-info-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border: none;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+            position: relative;
+            text-align: center;
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            opacity: 1;
+        }
+
+        .match-detail {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            line-height: 1.5em;
+        }
+        .match-detail strong {
+            font-weight: 600;
+            color: #004d98;
+            margin-right: 5px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            background: none; /* No background color for footer - transparent on blaugrana */
+            color: white;
+            text-align: center;
+            width: 100%;
+            font-size: 0.9em;
+            border-top: 3px solid white; /* White top border for footer */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative; /* For absolute positioning of created by */
+        }
+
+        .sponsor-logos {
+            display: none; /* Hide sponsor logos */
+        }
+
+        .created-by { /* Style for "Created By" text */
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.7); /* Slightly transparent white */
+            opacity: 0.8; /* Further subtle opacity */
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/1200px-FC_Barcelona_%28crest%29.svg.png" alt="FC Barcelona Crest" class="barcelona-crest">
+        <h1>FC Barcelona Schedule (La Liga)</h1>
+    </div>
+    <p class="tagline">February - May 2025 (IST)</p>
+
+    <div class="calendar-container">
+        <div class="calendar-header" id="calendarHeader">
+            <div class="month-navigation">
+                <button id="prevMonthBtn"><i class="fas fa-chevron-left"></i></button>
+            </div>
+            <div id="currentMonthYear">
+            </div>
+            <div class="month-navigation">
+                <button id="nextMonthBtn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+        <div class="calendar-body">
+            <div class="calendar-weekdays">
+                <div class="weekday">Sun</div>
+                <div class="weekday">Mon</div>
+                <div class="weekday">Tue</div>
+                <div class="weekday">Wed</div>
+                <div class="weekday">Thu</div>
+                <div class="weekday">Fri</div>
+                <div class="weekday">Sat</div>
+            </div>
+            <div class="calendar-days" id="calendarDays">
+            </div>
+        </div>
+    </div>
+
+    <div id="matchInfoPopup" class="match-info-popup">
+        <div class="match-info-content">
+            <span class="close-button" id="closePopup">&times;</span>
+            <h2 id="popupMatchTitle" style="color: #004d98; margin-bottom: 15px;">Match Details</h2>
+            <div id="popupMatchDetails">
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="sponsor-logos">
+            </div>
+        <p>&copy; 2023 FC Barcelona Match Calendar - Unofficial, for informational purposes only.</p>
+        <div class="created-by">Created By _ Emon</div>
+    </footer>
+
+    <script>
+        // --- JavaScript - Updated Match Schedule and Title ---
+        const calendarHeader = document.getElementById('calendarHeader');
+        const calendarDays = document.getElementById('calendarDays');
+        const matchInfoPopup = document.getElementById('matchInfoPopup');
+        const closePopupButton = document.getElementById('closePopup');
+        const popupMatchTitle = document.getElementById('popupMatchTitle');
+        const popupMatchDetails = document.getElementById('popupMatchDetails');
+        const prevMonthBtn = document.getElementById('prevMonthBtn');
+        const nextMonthBtn = document.getElementById('nextMonthBtn');
+        const currentMonthYearDisplay = document.getElementById('currentMonthYear');
+
+        let currentDate = new Date(2025, 1); // Start with February 2025
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+
+        // Updated FC Barcelona La Liga Match Schedule for Feb-May 2025 (User Provided Data) - Times are in CET (Spain Time) and then converted to IST
+        const matches2025 = [
+            { date: '2025-02-10', dayOfWeek: 'Mon', time: '01:30', opponent: 'Sevilla FC', competition: 'La Liga', venue: 'TBA',
+              history: "Historically, FC Barcelona has had a slight edge over Sevilla in La Liga, with numerous high-scoring and competitive matches between these two clubs. They've faced each other many times in Copa del Rey finals as well." },
+            { date: '2025-02-18', dayOfWeek: 'Tue', time: '01:30', opponent: 'Rayo Vallecano', competition: 'La Liga', venue: 'Camp Nou',
+              history: "FC Barcelona dominates the head-to-head record against Rayo Vallecano. Matches often see Barcelona in control, though Rayo can sometimes cause an upset at home." },
+            { date: '2025-02-23', dayOfWeek: 'Sun', time: '02:00', opponent: 'UD Las Palmas', competition: 'La Liga', venue: 'Gran Canaria',
+              history: "Historically, Barcelona has a strong winning record against Las Palmas. Matches at Gran Canaria can be challenging due to the atmosphere, but Barcelona usually prevails." },
+            { date: '2025-03-02', dayOfWeek: 'Sun', time: 'TBA', opponent: 'Real Sociedad', competition: 'La Liga', venue: 'Camp Nou',
+              history: "FC Barcelona and Real Sociedad have a rich history with Sociedad sometimes proving to be a difficult opponent, especially at Anoeta. However, Barcelona's overall record is favorable." },
+            { date: '2025-03-09', dayOfWeek: 'Sun', time: 'TBA', opponent: 'CA Osasuna', competition: 'La Liga', venue: 'Camp Nou',
+              history: "Barcelona typically holds a strong advantage in matches against Osasuna. Camp Nou has been a fortress for Barcelona in these encounters, although Osasuna is known for its fighting spirit." },
+            { date: '2025-03-16', dayOfWeek: 'Sun', time: 'TBA', opponent: 'Atlético Madrid', competition: 'La Liga', venue: 'Wanda Metropolitano',
+              history: "Matches between FC Barcelona and Atlético Madrid are consistently among the most anticipated in La Liga. Historically very tight and tactical, with both teams often vying for the title." },
+            { date: '2025-03-30', dayOfWeek: 'Sun', time: 'TBA', opponent: 'Girona', competition: 'La Liga', venue: 'Camp Nou',
+              history: "As a relatively newer team in La Liga compared to Barcelona, Girona's head-to-head history is still developing. Barcelona is expected to have the upper hand historically." },
+            { date: '2025-04-06', dayOfWeek: 'Sun', time: 'TBA', opponent: 'Real Betis', competition: 'La Liga', venue: 'Camp Nou',
+              history: "FC Barcelona and Real Betis often engage in open, attacking matches. Barcelona has a better overall record, but Betis can be unpredictable and challenging, especially at home." },
+            { date: '2025-04-13', dayOfWeek: 'Sun', time: 'TBA', opponent: 'CD Leganés', competition: 'La Liga', venue: 'Butarque',
+              history: "Historically, Barcelona has a dominant record against Leganés. Given Leganés's relatively shorter history in La Liga, Barcelona is the clear favorite in head-to-head encounters." },
+            { date: '2025-04-20', dayOfWeek: 'Sun', time: 'TBA', opponent: 'RC Celta de Vigo', competition: 'La Liga', venue: 'Camp Nou',
+              history: "Celta Vigo has occasionally troubled FC Barcelona, especially at Balaídos. However, Barcelona's overall historical record is significantly stronger." },
+            { date: '2025-04-23', dayOfWeek: 'Wed', time: 'TBA', opponent: 'RCD Mallorca', competition: 'La Liga', venue: 'Camp Nou',
+              history: "Historically, FC Barcelona boasts a strong record against RCD Mallorca. Matches at Camp Nou have heavily favored Barcelona, although Mallorca can be resilient at home." },
+            { date: '2025-05-04', dayOfWeek: 'Sun', time: 'TBA', opponent: 'Real Valladolid', competition: 'La Liga', venue: 'José Zorrilla',
+              history: "Barcelona has a very dominant historical record against Real Valladolid. Matches between these teams often see Barcelona in control, with a high win percentage." },
+            { date: '2025-05-11', dayOfWeek: 'Sun', time: 'TBA', opponent: 'Real Madrid', competition: 'La Liga', venue: 'Camp Nou',
+              history: "El Clásico - FC Barcelona vs Real Madrid is one of the biggest rivalries in world football. Historically, head-to-head is very closely contested, with periods of dominance for both clubs. Every match is a global spectacle." },
+            { date: '2025-05-14', dayOfWeek: 'Wed', time: 'TBA', opponent: 'RCD Espanyol', competition: 'La Liga', venue: 'Cornellà-El Prat',
+              history: "The Derbi Barceloní - FC Barcelona vs Espanyol. Barcelona heavily dominates the head-to-head record. Espanyol occasionally manages upsets, but Barcelona is historically the stronger side." },
+            { date: '2025-05-18', dayOfWeek: 'Sun', time: 'TBA', opponent: 'Villarreal CF', competition: 'La Liga', venue: 'Camp Nou',
+              history: "Matches between FC Barcelona and Villarreal are often high-quality and attacking affairs. Barcelona has a stronger historical record, but Villarreal is a consistently competitive team." },
+            { date: '2025-05-25', dayOfWeek: 'Sun', time: 'TBA', opponent: 'Athletic Club', competition: 'La Liga', venue: 'San Mamés',
+              history: "FC Barcelona and Athletic Bilbao have a long and storied history, including numerous Copa del Rey finals. Athletic Club at San Mamés is always a tough fixture, though Barcelona's overall record is better." }
+        ];
+
+
+        function generateCalendar(month, year) {
+            currentMonthYearDisplay.textContent = new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
+            calendarDays.innerHTML = '';
+
+            const firstDayOfMonth = new Date(year, month, 1);
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const startingDayOfWeek = firstDayOfMonth.getDay();
+
+            for (let i = 0; i < startingDayOfWeek; i++) {
+                const dayCell = document.createElement('div');
+                dayCell.classList.add('day');
+                calendarDays.appendChild(dayCell);
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.classList.add('day');
+                dayCell.textContent = day;
+
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+                // Filter matches for the current month and year
+                const matchOnDay = matches2025.find(match => {
+                    const matchDate = new Date(match.date);
+                    return matchDate.getFullYear() === year && matchDate.getMonth() === month && matchDate.getDate() === day;
+                });
+
+
+                if (matchOnDay) {
+                    dayCell.classList.add('has-match');
+                    dayCell.addEventListener('click', () => showMatchDetails(matchOnDay));
+                }
+
+                calendarDays.appendChild(dayCell);
+            }
+        }
+
+        function showMatchDetails(match) {
+            // Time Conversion to IST
+            let spainTime = match.time;
+            let istTime = "TBA"; // Default to TBA if time is not available
+
+            if (spainTime !== "TBA") {
+                let [hours, minutes] = spainTime.split(':').map(Number);
+                let spainDate = new Date(2025, parseInt(match.date.split('-')[1]) - 1, parseInt(match.date.split('-')[2]), hours, minutes); // Month is 0-indexed
+                let istDate = new Date(spainDate.toLocaleString("en-US", { timeZone: "Europe/Madrid" })); // Treat Spain time as Madrid time
+                istDate.setHours(istDate.getHours() + 4); // Add 4 hours for CET to IST roughly (a bit simplified)
+                istDate.setMinutes(istDate.getMinutes() + 30); // Add 30 minutes
+
+                let istHours = istDate.getHours().toString().padStart(2, '0');
+                let istMinutes = istDate.getMinutes().toString().padStart(2, '0');
+                istTime = `${istHours}:${istMinutes}`;
+            }
+
+
+            popupMatchTitle.textContent = `FC Barcelona vs ${match.opponent}`;
+            popupMatchDetails.innerHTML = `
+                <div class="match-detail"><strong>Competition:</strong> ${match.competition}</div>
+                <div class="match-detail"><strong>Opponent:</strong> ${match.opponent}</div>
+                <div class="match-detail"><strong>Date:</strong> ${new Date(match.date).toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' })}</div>
+                <div class="match-detail"><strong>Time:</strong> ${istTime} IST</div>
+                <div class="match-detail"><strong>Venue:</strong> ${match.venue || 'To Be Announced'}</div>
+                <div class="match-detail"><strong>History:</strong> ${match.history || 'Historical data not available.'}</div>
+            `;
+            matchInfoPopup.style.display = "flex";
+        }
+
+        closePopupButton.addEventListener('click', function() {
+            matchInfoPopup.style.display = "none";
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == matchInfoPopup) {
+                matchInfoPopup.style.display = "none";
+            }
+        });
+
+        prevMonthBtn.addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar(currentMonth, currentYear);
+        });
+
+        nextMonthBtn.addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            generateCalendar(currentMonth, currentYear);
+        });
+
+
+        generateCalendar(currentMonth, currentYear);
+
+    </script>
+
+</body>
+</html>
